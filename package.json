@@ -1,6 +1,7 @@
 {
-  "name": "threejs",
+  "name": "p01",
   "version": "1.0.0",
+  "description": "",
   "main": "webpack.config.js",
   "scripts": {
     "dev": "webpack serve --mode development",
@@ -31,10 +32,8 @@
     "> 1%",
     "last 2 versions"
   ],
-  "description": "",
   "dependencies": {
-    "gsap": "^3.5.1",
-    "lil-gui": "^0.14.0",
-    "three": "^0.134.0"
+    "gsap": "^3.11.3",
+    "three": "^0.145.0"
   }
 }
