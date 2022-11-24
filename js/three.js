@@ -1,10 +1,12 @@
 import * as THREE from 'three';
+import html2canvas from 'html2canvas';
 
 import { AsciiEffect } from 'three/addons/effects/AsciiEffect.js';
 import { TrackballControls } from 'three/addons/controls/TrackballControls.js';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
 let camera, controls, scene, renderer, effect;
+let group;
 const gltfLoader = new GLTFLoader()
 
 const start = Date.now();
@@ -14,12 +16,14 @@ animate();
 
 function init() {
 
-    camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 1000 );
+    camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 10000 );
     camera.position.y = 150;
     camera.position.z = 500;
 
     scene = new THREE.Scene();
     scene.background = new THREE.Color( 0, 0, 0 );
+
+    group = new THREE.Group();
 
     const pointLight1 = new THREE.PointLight( 0xffffff );
     pointLight1.position.set( 500, 500, 500 );
@@ -29,15 +33,17 @@ function init() {
     pointLight2.position.set( - 500, - 500, - 500 );
     scene.add( pointLight2 );
 
-
     gltfLoader.load(
         '/iphone.glb',
         (gltf) =>
         {
             gltf.scene.scale.set(4000,4000,4000)
-            scene.add(gltf.scene)
+            group.add(gltf.scene)
         }
     )
+
+    scene.add(group)
+    // group.rotation.x = 1;
 
     renderer = new THREE.WebGLRenderer();
     renderer.setSize( window.innerWidth, window.innerHeight );
@@ -46,13 +52,10 @@ function init() {
     effect.setSize( window.innerWidth, window.innerHeight );
     effect.domElement.style.color = 'white';
     effect.domElement.style.backgroundColor = 'black';
-    // effect.domElement.children[0].style.width = '100%';
-    // effect.domElement.children[0].style.height = '100%';
-    // effect.domElement.children[0].style.fontSize = '10px';
-    // effect.domElement.children[0].style.lineHeight = '10px';
+    effect.domElement.id = "capture_area"
 
-    console.log(effect.domElement.children[0].style)
     document.body.appendChild( effect.domElement );
+    // console.log(effect.domElement.id)
 
     controls = new TrackballControls( camera, effect.domElement )
 
@@ -85,7 +88,22 @@ function render() {
     controls.update();
 
     effect.render( scene, camera );
+    group.rotation.x = -timer*0.0001;
+    group.rotation.y = timer*0.0001;
+    group.rotation.z = timer*0.0001;
 
 }
 
-console.log(scene.children )
+// let btnDownload = document.getElementById("btn_download");
+
+// function download() {
+//     html2canvas(document.getElementById("capture_area")).then(function(canvas) {
+//         var el = document.createElement("a")
+//         el.href = canvas.toDataURL("image/jpeg")
+//         el.download = '이미지.jpg' //다운로드 할 파일명 설정
+//         el.click()
+//     })
+// }
+// btnDownload.onclick = download()
+
+// console.log(btnDownload)

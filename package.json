@@ -34,6 +34,7 @@
   ],
   "dependencies": {
     "gsap": "^3.11.3",
+    "html2canvas": "^1.4.1",
     "three": "^0.145.0"
   }
 }
