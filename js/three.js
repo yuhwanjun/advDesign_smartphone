@@ -46,7 +46,12 @@ function init() {
     effect.setSize( window.innerWidth, window.innerHeight );
     effect.domElement.style.color = 'white';
     effect.domElement.style.backgroundColor = 'black';
+    // effect.domElement.children[0].style.width = '100%';
+    // effect.domElement.children[0].style.height = '100%';
+    // effect.domElement.children[0].style.fontSize = '10px';
+    // effect.domElement.children[0].style.lineHeight = '10px';
 
+    console.log(effect.domElement.children[0].style)
     document.body.appendChild( effect.domElement );
 
     controls = new TrackballControls( camera, effect.domElement )
