@@ -17,8 +17,9 @@ animate();
 function init() {
 
     camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 10000 );
-    camera.position.y = 150;
-    camera.position.z = 500;
+    camera.position.y = -40;
+    camera.position.z = 60;
+    camera.position.x = -40;
 
     scene = new THREE.Scene();
     scene.background = new THREE.Color( 0, 0, 0 );
@@ -43,7 +44,8 @@ function init() {
     )
 
     scene.add(group)
-    // group.rotation.x = 1;
+    group.rotation.y = -.5;
+    group.rotation.z = 0.5;
 
     renderer = new THREE.WebGLRenderer();
     renderer.setSize( window.innerWidth, window.innerHeight );
@@ -88,9 +90,10 @@ function render() {
     controls.update();
 
     effect.render( scene, camera );
-    group.rotation.x = -timer*0.0001;
-    group.rotation.y = timer*0.0001;
-    group.rotation.z = timer*0.0001;
+    
+    group.rotation.y = 0 - timer*0.0001
+    group.rotation.y = -.5 + timer*0.0001;
+    group.rotation.z = 0.5 + timer*0.0001
 
 }
 
